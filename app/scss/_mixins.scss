@@ -1,0 +1,14 @@
+@mixin for-all-browsers($property, $value){
+    -webkit-#{$property}: $value;
+    -moz-#{$property}: $value;
+    -o-#{$property}: $value;
+    #{$property}: $value;
+}
+
+@mixin border-radius($value){
+    @include for-all-browsers(border-radius, $value);
+}
+
+@mixin box-shadow($horizontalLength, $verticalLength, $blurRadius, $spreadRadius, $colorWithOpacity){
+    @include for-all-browsers(box-shadow, $horizontalLength $verticalLength $blurRadius $spreadRadius $colorWithOpacity);
+}

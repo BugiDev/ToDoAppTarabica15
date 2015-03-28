@@ -1,0 +1,125 @@
+<!DOCTYPE html>
+<html>
+<head lang="en">
+    <meta charset="UTF-8">
+    <title></title>
+
+    <!-- comments:toggle html -->
+    <!--<link href="css/bootstrap.min.css" rel="stylesheet">-->
+    <!--<link rel="stylesheet" type="text/css" href="css/main.css"/>-->
+    <!--<script src="js/ToDoApp.js"></script>-->
+    <link href="../bower_components/bootstrap/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" type="text/css" href="css/main.css"/>
+    <script type="text/javascript" data-main="js/main.js" src="../bower_components/requirejs/require.js"></script>
+    <!-- endcomments -->
+
+</head>
+<body>
+<header>
+    <div class="container">
+        <div class="col-md-3"></div>
+        <div class="col-md-6 logo">
+            <img src="images/Logo.png">
+            ToDo App
+        </div>
+        <div class="col-md-3"></div>
+    </div>
+</header>
+
+<div class="container todo-container">
+
+    <div data-bind="foreach: toDoListRows">
+        <div class="row" data-bind="foreach: $data">
+            <div class="col-md-4">
+                <div class="todo-list">
+                    <div class="todo-list-header" data-bind="text: listName">
+
+                    </div>
+                    <!-- ko if: finishedNumber() !== '0 finished tasks' -->
+                    <span class="badge finished-counter pull-right" data-bind="text: finishedNumber()"></span>
+                    <!-- /ko -->
+                    <div data-bind="foreach: listItems">
+                        <div class="input-group todo-task-container">
+                            <input type="text"
+                                   data-bind="textInput: text, css: {'strike input-disabled': isChecked()}, disable: isChecked"
+                                   class="form-control task-input">
+                        <span class="input-group-addon task-checkbox" data-bind="css: {'input-disabled': isChecked()}">
+                        <input type="checkbox" data-bind="checked: isChecked"/>
+                        </span>
+                        </div>
+                    </div>
+                    <br>
+
+                    <div class="input-group addNewToDoItem input-control">
+                        <input type="text" class="form-control field" placeholder="Add new item..."
+                               data-bind="textInput: newItemText, enterkey: addNewToDoItem">
+                        <span class="input-group-addon glyphicon glyphicon-plus"
+                              data-bind="click: addNewToDoItem"></span>
+                    </div>
+                </div>
+            </div>
+
+            <!-- ko if: $parent.length < 3 -->
+            <div class="col-md-4 new-list-placeholder">
+                <div class="add-new-todo-list" data-bind="click: $root.showAddNewList, visible: !$root.shouldShowNewListNameField()">
+                    <span class="add-button glyphicon glyphicon-plus"></span>
+                    <br>
+                    Add new ToDo list...
+                </div>
+                <div class="input-group new-todo-list-edit input-control" data-bind="visible: $root.shouldShowNewListNameField()" >
+                    <input type="text" class="form-control field" placeholder="Add new ToDo List name..."
+                           data-bind="textInput: $root.newListName, enterkey: $root.addNewToDoList">
+                        <span class="input-group-addon glyphicon glyphicon-plus"
+                              data-bind="click: $root.addNewToDoList"></span>
+                </div>
+            </div>
+            <!-- /ko -->
+
+        </div>
+
+        <!-- ko if: ($data.length === 3 && $root.toDoLists().length % 3 === 0 && $index() + 1 === $root.toDoListRows().length ) -->
+        <div class="row">
+
+            <div class="col-md-4 new-list-placeholder">
+                <div class="add-new-todo-list" data-bind="click: $root.showAddNewList, visible: !$root.shouldShowNewListNameField()">
+                    <span class="add-button glyphicon glyphicon-plus"></span>
+                    <br>
+                    Add new ToDo list...
+                </div>
+                <div class="input-group new-todo-list-edit input-control" data-bind="visible: $root.shouldShowNewListNameField()" >
+                    <input type="text" class="form-control field" placeholder="Add new ToDo List name..."
+                           data-bind="textInput: $root.newListName, enterkey: $root.addNewToDoList">
+                        <span class="input-group-addon glyphicon glyphicon-plus"
+                              data-bind="click: $root.addNewToDoList"></span>
+                </div>
+            </div>
+            <div class="col-md-4"></div>
+            <div class="col-md-4"></div>
+        </div>
+        <!-- /ko -->
+
+    </div>
+
+    <!-- ko if: $root.toDoListRows().length === 0 -->
+    <div class="row ">
+        <div class="col-md-4"></div>
+        <div class="col-md-4 new-list-placeholder">
+            <div class="add-new-todo-list" data-bind="click: $root.showAddNewList, visible: !$root.shouldShowNewListNameField()">
+                <span class="add-button glyphicon glyphicon-plus"></span>
+                <br>
+                Add new ToDo list...
+            </div>
+            <div class="input-group new-todo-list-edit input-control" data-bind="visible: $root.shouldShowNewListNameField()" >
+                <input type="text" class="form-control field" placeholder="Add new ToDo List name..."
+                       data-bind="textInput: $root.newListName, enterkey: $root.addNewToDoList">
+                        <span class="input-group-addon glyphicon glyphicon-plus"
+                              data-bind="click: $root.addNewToDoList"></span>
+            </div>
+        </div>
+        <div class="col-md-4"></div>
+    </div>
+    <!-- /ko -->
+
+</div>
+</body>
+</html>
